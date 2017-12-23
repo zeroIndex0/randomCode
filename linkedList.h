@@ -58,6 +58,7 @@ public:
         //special case is when the list is empty
         if(isEmpty()) {
             head = tail = node;
+            return;
         }
 
         //this is at the front of the list and there will be nothing in previous
