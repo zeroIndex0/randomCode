@@ -85,7 +85,7 @@ public:
 
 //TODO add a way to get ancestors and what not, like getParent(), getUncle()
 //     also a way to print out the tree to make sure its working properly so I can stop looking in the debugger
-
+//     also add a way to get the height.  I think its importat for printing the tree and i think I have an idea as to how to do it
 private:
     //data elements
     T data;
