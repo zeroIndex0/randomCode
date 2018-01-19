@@ -39,7 +39,7 @@ int main(void) {
 
     do {
 
-        cout << "Enter Number To Add To The Tree: ";
+        cout << "Enter Number To Add To The Tree (-1 to quit): ";
         cin >> data;
         if(data == -1) {
             break;
@@ -53,6 +53,18 @@ int main(void) {
 
     } while(data != -1);
 
+    //Testing out the search function added to binaryTree.h
+    int option;
+    cout << "\nOkay, lets do a little search! \nWhat number are you looking for? ";
+    cin >> option;
+
+    BinaryTree<int> *searchNodes = NULL;
+    searchNodes = t->search(option);
+    if(searchNodes == NULL) {
+        cout << option << " is not in the tree" << endl;
+    } else {
+        cout << "Found " << searchNodes->getData() << endl;
+    }
 
 return 0;
 }
