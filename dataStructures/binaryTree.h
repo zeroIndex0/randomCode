@@ -64,6 +64,25 @@ public:
     }
 
 
+//A search function for the binary tree that returns a binarytree pointer
+//returns NULL if the data is not in the tree
+    BinaryTree<T> *search(T data) {
+        if(data == this->getData())
+            return this;
+        if(data < this->getData()) {
+            if(!this->getLeft()) {
+                return NULL;
+            }
+            this->getLeft()->search(data);
+        } else {
+            if(!this->getRight()) {
+                return NULL;
+            }
+            this->getRight()->search(data);
+        }
+    }
+
+
 //TODO add a way to get ancestors and what not, like getParent(), getUncle()
 //     also a way to print out the tree to make sure its working properly so I can stop looking in the debugger
 
