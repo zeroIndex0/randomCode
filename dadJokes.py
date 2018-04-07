@@ -15,7 +15,6 @@
 
 print("")
 import requests
-from random import choice
 
 url = "https://icanhazdadjoke.com/search"
 
