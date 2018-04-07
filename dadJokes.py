@@ -5,17 +5,17 @@
 
 # Notes:    A program that will serach https://icanhazdadjoke.com for jokes on a topic of your choice
 #
-#			This program requires the Module 'requests' in order to work
-#			requests can be imported using pip in your terminal ( or everyone's favorite, Powershell... the joke hurts me on the inside )
-#			with the command 'python -m pip install requests'
+#		This program requires the Module 'requests' in order to work
+#		requests can be imported using pip in your terminal ( or everyone's favorite, Powershell... the joke hurts me on the inside )
+#		with the command 'python -m pip install requests'
 #
-#			Please keep in mind that this is just something i was messing around with in order to use python on the web
-#			It does not handle all types of error checking, thanks
+#		Please keep in mind that this is just something i was messing around with in order to use python on the web
+#		It does not handle all types of error checking, thanks
 
 
 print("")
 import requests
-from random		import choice
+from random import choice
 
 url = "https://icanhazdadjoke.com/search"
 
@@ -26,7 +26,6 @@ response = requests.get(
 	headers = {"Accept": "application/json"},
 	params = {"term": msg}
 )
-
 
 data = response.json()
 num_jokes = data['total_jokes']
