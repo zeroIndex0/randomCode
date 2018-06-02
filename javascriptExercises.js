@@ -1,4 +1,4 @@
-//Holy shit, i cant wait until i read more about api and json and using it to build things
+//i cant wait until i read more about api and json and using it to build things
 //it's exciting.  Screw the compiled languages of the past, welcome to script world!
 // i dont really mean that, i still like you C++
 
