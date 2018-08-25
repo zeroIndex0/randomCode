@@ -5,4 +5,4 @@ A repository for a collection of progams ive written for the heck of it
   - The data structures have now been moved into their own repo and will no longer be updated here
   
   
-Wow, there are some <strong><em>Python</em></strong> files in here!
+Wow, there are some <strong><em>Python</em></strong> files in here! And JavaScript
