@@ -1,9 +1,4 @@
-//i cant wait until i read more about api and json and using it to build things
-//it's exciting.  Screw the compiled languages of the past, welcome to script world!
-// i dont really mean that, i still like you C++
-
-
-//just messing around to capitalize every word, in this case anything after a space
+//just messing around capitalizing every word, in this case anything after a space
 //can I fake a scope like in C++?  Yup, awesome, good to know
 //I also dont even need .charAt, i can just use [index]
 {
