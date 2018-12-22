@@ -1,0 +1,13 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+/* if you have issue with your image fitting becuase its too large uncomment these or add your own sizes */
+#anImage {
+  /* width:100%; */
+  height: 50%;
+}
