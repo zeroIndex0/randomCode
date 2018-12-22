@@ -161,6 +161,7 @@ const anotherRender = () => {
 
 
 // ==================================== WIP ================================================== \\
+//attempting to do this: https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering
 //in my render function is where im trying to do the dither stuff, thats not going to work
 //I need to do my dither stuff right here, but im a bit unsure of adding my pixels to the particle object
 //since ill be looping back over them and just restting them.  Its something i have to think about
