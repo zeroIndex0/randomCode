@@ -9,4 +9,4 @@ Just something to be aware of.  You will have to hit refresh a few times for thi
 This is the output that can be expected:  
 ![screenshot](ian-robinson-tiger-example-output.PNG)
 
-Photo of the tiger by Ian Robinson on Unsplash
+Photo of the tiger by Ian Robinson on Unsplash can be found [here](https://unsplash.com/photos/DfKZs6DOrw4) as well.
