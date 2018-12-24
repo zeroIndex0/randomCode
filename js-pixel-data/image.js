@@ -160,98 +160,83 @@ const anotherRender = () => {
 
 
 
-// ==================================== WIP ================================================== \\
-//attempting to do this: https://en.wikipedia.org/wiki/Floyd%E2%80%93Steinberg_dithering
-//in my render function is where im trying to do the dither stuff, thats not going to work
-//I need to do my dither stuff right here, but im a bit unsure of adding my pixels to the particle object
-//since ill be looping back over them and just restting them.  Its something i have to think about
-//it might not be the case but most likey thats going to be an issue of just rewriting over everyting ive already done.
-// function againAnotherDraw() {
-//   againAnotherCanvas.height = img.height;
-//   againAnotherCanvas.width = img.width;
-//   ctx.drawImage(img, 0, 0, img.width, img.height);
-//   let data = ctx.getImageData(0, 0, img.width, img.height);
-//   // againAnotherCTX.clearRect(0, 0, canvas.width, canvas.height);
-//   let particle = {};
-//   particles.length = 0;
-//   let factor = 1;
+function againAnotherDraw() {
+  againAnotherCanvas.height = img.height;
+  againAnotherCanvas.width = img.width;
+  ctx.drawImage(img, 0, 0, img.width, img.height);
+  let data = ctx.getImageData(0, 0, img.width, img.height);
+  // againAnotherCTX.clearRect(0, 0, canvas.width, canvas.height);
+  let particle = {};
+  particles.length = 0;
+  let factor = 1;
 
-//   for (let y = 0; y < data.height; y++) {
-//     for (let x = 0; x < data.width; x++) {
-//       let p = (x + y * data.width) * 4;
-//       particle = {
-//         x: x,
-//         y: y,
-//         red: Math.round(factor * data.data[p] / 255) * (255 / factor),
-//         green: Math.round(factor * data.data[p + 1] / 255) * (255 / factor),
-//         blue: Math.round(factor * data.data[p + 2] / 255) * (255 / factor),
-//         alpha: data.data[p + 3],
-//         errorRed: data.data[p] - Math.round(factor * data.data[p] / 255) * (255 / factor),
-//         errorGreen: data.data[p + 1] - Math.round(factor * data.data[p + 1] / 255) * (255 / factor),
-//         errorBlue: data.data[p + 2] - Math.round(factor * data.data[p + 2] / 255) * (255 / factor),
-//       }
-//       particles.push(particle);
-//     }
-//   }
-//   againAnotherRender();
-// }
+  for (let y = 0; y < data.height - 1; y++) {
+    for (let x = 1; x < data.width - 1; x++) {
+      let p = (x + y * data.width) * 4;
+      let p1 = ((x + 1) + (y    ) * data.width) * 4;
+      let p2 = ((x + 1) + (y + 1) * data.width) * 4;
+      let p3 = ((x    ) + (y + 1) * data.width) * 4;
+      let p4 = ((x + 1) + (y + 1) * data.width) * 4;
+      let red = data.data[p];
+      let green = data.data[p + 1];
+      let blue = data.data[p + 2];
+      let quantizeRed = Math.round(factor * data.data[p] / 255) * (255 / factor);
+      let quantizeGreen = Math.round(factor * data.data[p + 1] / 255) * (255 / factor);
+      let quantizeBlue = Math.round(factor * data.data[p + 2] / 255) * (255 / factor);
+      
+      data.data[p] = quantizeRed;
+      data.data[p + 1] = quantizeGreen;
+      data.data[p + 2] = quantizeBlue;
+      let errorRed = red - quantizeRed;
+      let errorGreen = green - quantizeGreen;
+      let errorBlue = blue - quantizeBlue;
+      
+      data.data[p1    ] = data.data[p1    ] + errorRed * 7/16;
+      data.data[p1 + 1] = data.data[p1 + 1] + errorGreen * 7/16;
+      data.data[p1 + 2] = data.data[p1 + 2] + errorBlue * 7/16;
+      
+      data.data[p2    ] = data.data[p2    ] + errorRed * 3/16;
+      data.data[p2 + 1] = data.data[p2 + 1] + errorGreen * 3/16;
+      data.data[p2 + 2] = data.data[p2 + 2] + errorBlue * 3/16;
+      
+      data.data[p3    ] = data.data[p3    ] + errorRed * 5/16;
+      data.data[p3 + 1] = data.data[p3 + 1] + errorGreen * 5/16;
+      data.data[p3 + 2] = data.data[p3 + 2] + errorBlue * 5/16;
+      
+      data.data[p4    ] = data.data[p4    ] + errorRed * 1/16;
+      data.data[p4 + 1] = data.data[p4 + 1] + errorGreen * 1/16;
+      data.data[p4 + 2] = data.data[p4 + 2] + errorBlue * 1/16;
 
-// const againAnotherRender = () => {
-//   // againAnotherCTX.clearRect(0, 0, canvas.width, canvas.height);
-//   console.log(particles.length);
-//   for (let i = 1; i < particles.length; i++) {
-//     // againAnotherCTX.fillStyle = particles[i].color;
-//     let red = particles[i].red;
-//     let green = particles[i].green;
-//     let blue = particles[i].blue;
-//     againAnotherCTX.fillStyle = `rgba(
-//       ${red}, 
-//       ${green},
-//       ${blue},
-//       ${particles[i].alpha})`;
-//     againAnotherCTX.fillRect(particles[i].x, particles[i].y, 2, 2);
+      particle = {
+        x: x,
+        y: y,
+        red: data.data[p],
+        green: data.data[p + 1],
+        blue: data.data[p + 2],
+        alpha: data.data[p + 3],
+      }
+      particles.push(particle);
+    }
+  }
+  againAnotherRender();
+}
 
-//     red = particles[i].red + particles[i].errorRed * 7/16;
-//     green = particles[i].green + particles[i].errorGreen * 7/16;
-//     blue = particles[i].blue + particles[i].errorBlue * 7/16;
-//     againAnotherCTX.fillStyle = `rgba(
-//       ${red}, 
-//       ${green},
-//       ${blue},
-//       ${particles[i].alpha})`;
-//     againAnotherCTX.fillRect(particles[i].x+1, particles[i].y, 2, 2);
-
-//     red = particles[i].red + particles[i].errorRed * 3/16;
-//     green = particles[i].green + particles[i].errorGreen * 3/16;
-//     blue = particles[i].blue + particles[i].errorBlue * 3/16;
-//     againAnotherCTX.fillStyle = `rgba(
-//       ${red}, 
-//       ${green},
-//       ${blue},
-//       ${particles[i].alpha})`;
-//     againAnotherCTX.fillRect(particles[i].x-1, particles[i].y+1, 2, 2);
-
-//     red = particles[i].red + particles[i].errorRed * 5/16;
-//     green = particles[i].green + particles[i].errorGreen * 5/16;
-//     blue = particles[i].blue + particles[i].errorBlue * 5/16;
-//     againAnotherCTX.fillStyle = `rgba(
-//       ${red}, 
-//       ${green},
-//       ${blue},
-//       ${particles[i].alpha})`;
-//     againAnotherCTX.fillRect(particles[i].x, particles[i].y+1, 2, 2);
-
-//     red = particles[i].red + particles[i].errorRed * 1/16;
-//     green = particles[i].green + particles[i].errorGreen * 1/16;
-//     blue = particles[i].blue + particles[i].errorBlue * 1/16;
-//     againAnotherCTX.fillStyle = `rgba(
-//       ${red}, 
-//       ${green},
-//       ${blue},
-//       ${particles[i].alpha})`;
-//     againAnotherCTX.fillRect(particles[i].x+1, particles[i].y+1, 2, 2);
-//   }
-// }
+const againAnotherRender = () => {
+  // againAnotherCTX.clearRect(0, 0, canvas.width, canvas.height);
+  console.log(particles.length);
+  for (let i = 1; i < particles.length; i++) {
+    // againAnotherCTX.fillStyle = particles[i].color;
+    let red = particles[i].red;
+    let green = particles[i].green;
+    let blue = particles[i].blue;
+    againAnotherCTX.fillStyle = `rgba(
+      ${red}, 
+      ${green},
+      ${blue},
+      ${particles[i].alpha})`;
+    againAnotherCTX.fillRect(particles[i].x, particles[i].y, 2, 2);
+  }
+}
 
 img.onload = drawPage();
 
@@ -259,8 +244,7 @@ function drawPage() {
   draw();
   differentDraw();
   anotherDraw();
-  // againAnotherDraw();  //WIP
+  againAnotherDraw();
   //hide the real image after everything is finished
   img.style.display = "none";
 }
-
