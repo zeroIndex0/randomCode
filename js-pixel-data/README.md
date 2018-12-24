@@ -5,3 +5,5 @@ If you want to run this, you just have to add an image to the image tag in the i
 One bug that annoys me since I'm unsure as to how I can go about fixing it, is that often times nothing renders.  
 I run my render functions with image.onload but that doesnt change the fact that the canvases reamain empty.  
 Just something to be aware of.  You will have to hit refresh a few times for this to work  
+
+Photo of the tiger by Ian Robinson on Unsplash
