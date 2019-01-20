@@ -1,6 +1,12 @@
 // import the image and the canvas then get all the pixel data and do stuff with it
 
 
+document.getElementById("renderButton").onclick = drawl;
+
+
+function drawl() {
+
+
 let img = document.getElementById("anImage");
 console.log(img.width);
 
@@ -64,8 +70,8 @@ const render = () => {
 function differentDraw() {
   differentCanvas.height = img.height;
   differentCanvas.width = img.width;
-  ctx.drawImage(img, 0, 0, img.width, img.height);
-  let data = ctx.getImageData(0, 0, img.width, img.height);
+  differentCTX.drawImage(img, 0, 0, img.width, img.height);
+  let data = differentCTX.getImageData(0, 0, img.width, img.height);
   // differentCTX.clearRect(0, 0, canvas.width, canvas.height);
   let particle = {};
   particles.length = 0;
@@ -121,8 +127,8 @@ const differentRender = () => {
 function anotherDraw() {
   anotherCanvas.height = img.height;
   anotherCanvas.width = img.width;
-  ctx.drawImage(img, 0, 0, img.width, img.height);
-  let data = ctx.getImageData(0, 0, img.width, img.height);
+  anotherCTX.drawImage(img, 0, 0, img.width, img.height);
+  let data = anotherCTX.getImageData(0, 0, img.width, img.height);
   // anotherCTX.clearRect(0, 0, canvas.width, canvas.height);
   let particle = {};
   particles.length = 0;
@@ -163,8 +169,8 @@ const anotherRender = () => {
 function againAnotherDraw() {
   againAnotherCanvas.height = img.height;
   againAnotherCanvas.width = img.width;
-  ctx.drawImage(img, 0, 0, img.width, img.height);
-  let data = ctx.getImageData(0, 0, img.width, img.height);
+  againAnotherCTX.drawImage(img, 0, 0, img.width, img.height);
+  let data = againAnotherCTX.getImageData(0, 0, img.width, img.height);
   // againAnotherCTX.clearRect(0, 0, canvas.width, canvas.height);
   let particle = {};
   particles.length = 0;
@@ -173,9 +179,9 @@ function againAnotherDraw() {
   for (let y = 0; y < data.height - 1; y++) {
     for (let x = 1; x < data.width - 1; x++) {
       let p = (x + y * data.width) * 4;
-      let p1 = ((x + 1) + (y    ) * data.width) * 4;
+      let p1 = ((x + 1) + (y) * data.width) * 4;
       let p2 = ((x + 1) + (y + 1) * data.width) * 4;
-      let p3 = ((x    ) + (y + 1) * data.width) * 4;
+      let p3 = ((x) + (y + 1) * data.width) * 4;
       let p4 = ((x + 1) + (y + 1) * data.width) * 4;
       let red = data.data[p];
       let green = data.data[p + 1];
@@ -183,29 +189,29 @@ function againAnotherDraw() {
       let quantizeRed = Math.round(factor * data.data[p] / 255) * (255 / factor);
       let quantizeGreen = Math.round(factor * data.data[p + 1] / 255) * (255 / factor);
       let quantizeBlue = Math.round(factor * data.data[p + 2] / 255) * (255 / factor);
-      
+
       data.data[p] = quantizeRed;
       data.data[p + 1] = quantizeGreen;
       data.data[p + 2] = quantizeBlue;
       let errorRed = red - quantizeRed;
       let errorGreen = green - quantizeGreen;
       let errorBlue = blue - quantizeBlue;
-      
-      data.data[p1    ] = data.data[p1    ] + errorRed * 7/16;
-      data.data[p1 + 1] = data.data[p1 + 1] + errorGreen * 7/16;
-      data.data[p1 + 2] = data.data[p1 + 2] + errorBlue * 7/16;
-      
-      data.data[p2    ] = data.data[p2    ] + errorRed * 3/16;
-      data.data[p2 + 1] = data.data[p2 + 1] + errorGreen * 3/16;
-      data.data[p2 + 2] = data.data[p2 + 2] + errorBlue * 3/16;
-      
-      data.data[p3    ] = data.data[p3    ] + errorRed * 5/16;
-      data.data[p3 + 1] = data.data[p3 + 1] + errorGreen * 5/16;
-      data.data[p3 + 2] = data.data[p3 + 2] + errorBlue * 5/16;
-      
-      data.data[p4    ] = data.data[p4    ] + errorRed * 1/16;
-      data.data[p4 + 1] = data.data[p4 + 1] + errorGreen * 1/16;
-      data.data[p4 + 2] = data.data[p4 + 2] + errorBlue * 1/16;
+
+      data.data[p1] = data.data[p1] + errorRed * 7 / 16;
+      data.data[p1 + 1] = data.data[p1 + 1] + errorGreen * 7 / 16;
+      data.data[p1 + 2] = data.data[p1 + 2] + errorBlue * 7 / 16;
+
+      data.data[p2] = data.data[p2] + errorRed * 3 / 16;
+      data.data[p2 + 1] = data.data[p2 + 1] + errorGreen * 3 / 16;
+      data.data[p2 + 2] = data.data[p2 + 2] + errorBlue * 3 / 16;
+
+      data.data[p3] = data.data[p3] + errorRed * 5 / 16;
+      data.data[p3 + 1] = data.data[p3 + 1] + errorGreen * 5 / 16;
+      data.data[p3 + 2] = data.data[p3 + 2] + errorBlue * 5 / 16;
+
+      data.data[p4] = data.data[p4] + errorRed * 1 / 16;
+      data.data[p4 + 1] = data.data[p4 + 1] + errorGreen * 1 / 16;
+      data.data[p4 + 2] = data.data[p4 + 2] + errorBlue * 1 / 16;
 
       particle = {
         x: x,
@@ -247,4 +253,6 @@ function drawPage() {
   againAnotherDraw();
   //hide the real image after everything is finished
   img.style.display = "none";
+}
+
 }
